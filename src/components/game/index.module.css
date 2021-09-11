@@ -20,7 +20,7 @@
   width: 37.5%;
 }
 
-.button {
+.actionButton {
   align-items: center;
   display: inline-flex;
   font-size: 0.5em;
@@ -29,11 +29,32 @@
   width: 12.5%;
 }
 
+.outcome {
+  align-items: center;
+  display: inline-flex;
+  font-size: 0.8em;
+  margin-bottom: 0.25em;
+}
+
+.retryButton {
+  align-items: center;
+  background-color: #000a;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.25em;
+  height: 8em;
+  justify-content: center;
+  width: 8em;
+}
+
 @media screen and (orientation: portrait) {
   .game {
     flex-direction: row-reverse;
     font-size: min(calc(12.5vh - 0.75em), calc(20vw - 0.4em)); /* so that 1em is the size of a single cell */
   }
+
   .panel {
     flex-direction: column;
     justify-content: flex-end;
@@ -42,11 +63,13 @@
     height: 8em;
     width: 1em;
   }
+
   .filler {
     width: 100%;
     height: 37.5%;
   }
-  .button {
+
+  .actionButton {
     width: 100%;
     height: 12.5%;
   }

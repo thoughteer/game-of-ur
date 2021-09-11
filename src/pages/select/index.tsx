@@ -1,4 +1,4 @@
-import { BiDizzy, BiUser } from "react-icons/bi";
+import { BiDizzy, BiFace } from "react-icons/bi";
 import { Badge } from "../../components/badge";
 import { Side } from "../../components/game/model";
 import { Selector } from "../../components/selector";
@@ -18,7 +18,7 @@ const opponentKindSelectorModel = createSelectorModel([
     },
     {
         id: "webrtc",
-        icon: <BiUser size="3em"/>,
+        icon: <BiFace size="3em"/>,
         title: "WebRTC",
         content: <span>URI?</span>,
     },

@@ -11,6 +11,7 @@
   .table {
     flex-direction: row-reverse;
   }
+
   .row {
     flex-direction: column;
   }

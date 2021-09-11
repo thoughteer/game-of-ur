@@ -32,10 +32,13 @@
   .title {
     display: none;
   }
+
   .header {
     flex-direction: column;
   }
+
   .tab, .activeTab {
     padding: 0.5em;
+    width: auto;
   }
 }
