@@ -1,0 +1,35 @@
+.roll {
+  align-items: center;
+  display: flex;
+  flex-direction: row-reverse;
+  height: 1em;
+  justify-content: space-around;
+  width: 4em;
+}
+
+.dice {
+  height: 1em;
+  width: 1em;
+}
+
+.spinningRight {
+  animation: spin 3s linear infinite;
+}
+
+.spinningLeft {
+  animation: spin 3s linear reverse infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .roll {
+    flex-direction: column-reverse;
+    width: 1em;
+    height: 4em;
+  }
+}

@@ -1,0 +1,19 @@
+.start-cell, .normal-cell, .lucky-cell, .safe-cell, .finish-cell {
+  align-items: center;
+  display: inline-flex;
+  height: 1em;
+  justify-content: center;
+  width: 1em;
+}
+
+.normal-cell {
+  background-color: cornflowerblue;
+}
+
+.lucky-cell {
+  background-color: green;
+}
+
+.safe-cell {
+  background-color: orange;
+}

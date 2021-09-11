@@ -1,0 +1,13 @@
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="-20 -20 1040 1040">
+    <polygon style="stroke-width: 20; stroke:#888888; fill:none;" points="500,0 67,750 933,750"/>
+    <polyline style="stroke-width: 20; stroke:#888888; fill:none;" points="500,500 500,0"/>
+    <polyline style="stroke-width: 20; stroke:#888888; fill:none;" points="500,500 67,750"/>
+    <polyline style="stroke-width: 20; stroke:#888888; fill:none;" points="500,500 933,750"/>
+
+    <polygon style="fill:#000000;" points="500,0 575,130 500,150 425,130 500,0"/>
+    <polygon style="fill:#FFFFFF;" points="67,750 217,750 197,675 142,620 "/>
+    <polygon style="fill:#000000;" points="933,750 858,620 803,675 783,750 "/>
+    <polygon style="fill:#FFFFFF;" points="500,350 370,575 630,575"/>
+</svg>

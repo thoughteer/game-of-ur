@@ -1,0 +1,47 @@
+.selector {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel {
+  display: flex;
+}
+
+.button, .selectedButton {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  font-weight: 600;
+  justify-content: flex-end;
+  padding: 0.5em 1em;
+}
+
+.selectedButton {
+  background-color: red;
+}
+
+.button:after {
+  content: "";
+  height: 0.5em;
+}
+
+.selectedButton:after {
+  content: "";
+  width: 0;
+  height: 0.5em;
+  border-left: 1em solid transparent;
+  border-right: 1em solid transparent;
+  border-bottom: 0.5em solid black;
+  margin-bottom: -0.5em;
+}
+
+.content {
+  background-color: black;
+  display: flex;
+  padding: 1em;
+}
+
+.content:empty {
+  display: none;
+}

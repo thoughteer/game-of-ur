@@ -1,0 +1,17 @@
+.table {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+}
+
+@media screen and (orientation: portrait) {
+  .table {
+    flex-direction: row-reverse;
+  }
+  .row {
+    flex-direction: column;
+  }
+}

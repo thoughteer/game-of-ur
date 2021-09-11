@@ -1,11 +1,11 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { App } from './App';
-import reportWebVitals from './reportWebVitals';
-import './index.css';
+import { StrictMode } from "react";
+import { render } from "react-dom";
+import { App } from "./app";
+import reportWebVitals from "./reportWebVitals";
+import "./index.css";
 
 const renderTarget = document.getElementById("app");
-render(<App />, renderTarget);
+render(<StrictMode><App/></StrictMode>, renderTarget);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
