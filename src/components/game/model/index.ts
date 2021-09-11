@@ -56,11 +56,12 @@ type CellState = {
 
 export const createGameModel = (userSide: Side, opponent: Bot): GameModel => {
     // TODO: clean up this shitty logic
-    const userId = userSide === Side.WHITE ? 0 : 1;
+    const userId = 0;
     const colorByPlayerId = userSide === Side.WHITE ? [PieceColor.WHITE, PieceColor.BLACK] : [PieceColor.BLACK, PieceColor.WHITE];
     const firstPlayerId = userSide === Side.WHITE ? 0 : 1;
-    const engine = createEngine(BOARD, DICES, PIECE_COUNT, firstPlayerId);
+    const engine = createEngine(BOARD, DICES, PIECE_COUNT);
     opponent.attach(engine, 1 - userId);
+    engine.start(firstPlayerId);
     const $cells = engine.$state.map<CellState[]>(state => {
         const result = Array(BOARD_SIZE).fill(null);
         state.players.forEach((player, playerId) => {

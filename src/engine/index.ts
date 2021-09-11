@@ -8,9 +8,9 @@ export * from "./types";
 // TODO: introduce CellId's
 // TODO: learn to write tests
 
-export const createEngine = (board: Board, dices: Dice[], pieceCount: number, firstPlayerId: number): Engine => {
+export const createEngine = (board: Board, dices: Dice[], pieceCount: number): Engine => {
     const $state = createStore<EngineState>({
-        currentPlayerId: firstPlayerId,
+        currentPlayerId: -1,
         players: board.paths.map(path => ({
             pieces: Array(pieceCount).fill({
                 cellId: path[0],
@@ -21,20 +21,27 @@ export const createEngine = (board: Board, dices: Dice[], pieceCount: number, fi
         ended: false,
     });
 
+    const started = createEvent<number>();
     const rolled = createEvent();
     const moveSkipped = createEvent();
     const pieceMoved = createEvent<number>();
 
+    $state.on(started, (state, firstPlayerId) => start(state, firstPlayerId));
     $state.on(rolled, state => roll(state, board, dices));
     $state.on(moveSkipped, skipMove);
     $state.on(pieceMoved, (state, movedPieceId) => movePiece(state, movedPieceId, board));
 
     return {
         $state,
+        start: started,
         roll: rolled,
         skipMove: moveSkipped,
         movePiece: pieceMoved,
     };
+};
+
+const start = (state: EngineState, firstPlayerId: number): EngineState => {
+    return { ...state, currentPlayerId: firstPlayerId };
 };
 
 const roll = (state: EngineState, board: Board, dices: Dice[]): EngineState => {

@@ -43,6 +43,7 @@ export type EngineState = Readonly<{
 
 export type Engine = {
     $state: Store<EngineState>;
+    start: Event<number>;
     roll: Event<void>;
     skipMove: Event<void>;
     movePiece: Event<number>;
