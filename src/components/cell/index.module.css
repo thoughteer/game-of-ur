@@ -17,3 +17,9 @@
 .safe-cell {
   background-color: orange;
 }
+
+.counter {
+  font-size: 0.25em;
+  mix-blend-mode: difference;
+  position: absolute;
+}

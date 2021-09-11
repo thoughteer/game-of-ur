@@ -50,7 +50,7 @@ const BOARD_SIZE = BOARD_WIDTH * BOARD_HEIGHT;
 
 type CellState = {
     playerId: number;
-    pieceId: number;
+    pieceIds: number[];
     clickable: boolean;
 } | null;
 
@@ -67,11 +67,14 @@ export const createGameModel = (userSide: Side, opponent: Bot): GameModel => {
         state.players.forEach((player, playerId) => {
             player.pieces.forEach((piece, pieceId) => {
                 const cellIndex = piece.cellId; // TODO
-                result[cellIndex] = {
-                    playerId,
-                    pieceId,
-                    clickable: piece.movable && (playerId === userId),
-                };
+                if (result[cellIndex] === null) {
+                    result[cellIndex] = {
+                        playerId,
+                        pieceIds: [],
+                        clickable: piece.movable && (playerId === userId),
+                    };
+                }
+                result[cellIndex].pieceIds.push(pieceId);
             });
         });
         return result;
@@ -88,13 +91,13 @@ export const createGameModel = (userSide: Side, opponent: Bot): GameModel => {
             const $cell = $cells.map(cells => cells[cellIndex]);
             const clicked = createEvent();
             sample({
-                source: $cell.map(cell => cell !== null ? cell.pieceId : -1), // TODO
+                source: $cell.map(cell => cell !== null ? cell.pieceIds[0] : -1), // TODO
                 clock: clicked,
                 target: engine.movePiece,
             });
             return {
                 kind: BOARD.cells[cellIndex].kind, // TODO
-                $pieces: $cell.map(cell => cell === null ? [] : [{ color: colorByPlayerId[cell.playerId] }]),
+                $pieces: $cell.map(cell => cell === null ? [] : Array(cell.pieceIds.length).fill({ color: colorByPlayerId[cell.playerId] })),
                 $clickable: $cell.map(cell => cell === null ? false : cell.clickable),
                 clicked,
             };
