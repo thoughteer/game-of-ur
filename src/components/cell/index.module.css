@@ -1,5 +1,6 @@
 .start-cell, .normal-cell, .lucky-cell, .safe-cell, .finish-cell {
   align-items: center;
+  cursor: pointer;
   display: inline-flex;
   height: 1em;
   justify-content: center;
