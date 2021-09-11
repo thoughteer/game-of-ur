@@ -14,6 +14,7 @@ export const Cell: React.FC<CellModel> = (model) => {
     const topPieceModel = useStore(model.$pieces.map(pieces => pieces.length > 0 ? pieces[0] : null));
     const pieceCount = useStore(model.$pieces.map(pieces => pieces.length));
     return <div className={styles[`${model.kind}-cell`]} onClick={handleClick}>
+        { clickable ? <div className={styles.highlight}/> : null }
         { topPieceModel === null ? null : <Piece {...topPieceModel}/> }
         { pieceCount <= 1 ? null : <div className={styles.counter}>&times;{pieceCount}</div> }
     </div>;

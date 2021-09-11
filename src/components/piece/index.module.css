@@ -1,8 +1,9 @@
 .white, .black {
-  display: inline-block;
-  width: 0.5em;
-  height: 0.5em;
   border-radius: 50%;
+  display: inline-block;
+  height: 0.5em;
+  width: 0.5em;
+  z-index: 1;
 }
 
 .white {

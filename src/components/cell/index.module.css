@@ -19,8 +19,16 @@
   background-color: orange;
 }
 
+.highlight {
+  background-color: cyan;
+  height: 1em;
+  position: absolute;
+  width: 1em;
+}
+
 .counter {
   font-size: 0.25em;
   mix-blend-mode: difference;
   position: absolute;
+  z-index: 2;
 }
