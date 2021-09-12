@@ -1,36 +1,46 @@
-import { createEffect, guard, sample, split } from "effector";
-import { EngineState } from "../engine";
+import { createEffect, forward, guard, sample, split } from "effector";
+import { EngineState, Roll } from "../engine";
 import { createRandomBotStrategy } from "./strategies";
-import { Bot, BotError, BotKind, BotMove, BotStrategy } from "./types";
+import { Bot, BotError, BotKind, BotMove, BotStrategy, DiceRoller } from "./types";
 
 export * from "./types";
 
-export const createBot = (strategy: BotStrategy): Bot => {
-    const decideFx = createEffect<EngineState, BotMove, BotError>(strategy);
+export const createBot = (strategy: BotStrategy, diceRoller: DiceRoller = async () => null): Bot => {
+    const rollDicesFx = createEffect<void, Roll | null, BotError>(diceRoller);
+    const moveFx = createEffect<EngineState, BotMove, BotError>(strategy);
     return {
         attach: (engine, playerId) => {
             const $botsTurn = engine.$state.map(state => state.currentPlayerId === playerId);
             const $rollable = engine.$state.map(state => state.roll === null);
 
-            guard({
+            const diceRollTriggered = guard({
                 source: [$botsTurn, $rollable],
                 filter: ([botsTurn, rollable]) => botsTurn && rollable,
-                target: engine.rollDices.prepend(() => null),
             });
 
-            const triggered = guard({
+            const dicesRolled = sample({
+                clock: diceRollTriggered,
+                target: rollDicesFx,
+            }).doneData;
+
+            forward({
+                from: dicesRolled,
+                to: engine.rollDices,
+            });
+
+            const moveTriggered = guard({
                 source: [$botsTurn, $rollable],
                 filter: ([botsTurn, rollable]) => botsTurn && !rollable,
             });
 
-            const decided = sample({
+            const moved = sample({
                 source: engine.$state,
-                clock: triggered,
-                target: decideFx,
+                clock: moveTriggered,
+                target: moveFx,
             }).doneData;
 
             split({
-                source: decided,
+                source: moved,
                 match: { skip: move => move === null },
                 cases: {
                     skip: engine.skipMove,
@@ -38,7 +48,7 @@ export const createBot = (strategy: BotStrategy): Bot => {
                 },
             });
         },
-        $thinking: decideFx.pending,
+        $thinking: moveFx.pending,
     };
 };
 

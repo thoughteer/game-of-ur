@@ -1,5 +1,7 @@
 import { Store } from "effector";
-import { Engine, EngineState } from "../engine";
+import { Engine, EngineState, Roll } from "../engine";
+
+export type DiceRoller = () => Promise<Roll | null>;
 
 export type BotMove = number | null;
 export type BotStrategy = (engineState: EngineState) => Promise<BotMove>;
