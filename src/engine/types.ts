@@ -44,7 +44,7 @@ export type EngineState = Readonly<{
 export type Engine = {
     $state: Store<EngineState>;
     start: Event<number>;
-    roll: Event<void>;
+    rollDices: Event<Roll | null>;
     skipMove: Event<void>;
     movePiece: Event<number>;
 };

@@ -105,7 +105,7 @@ export const createGameModel = (userSide: Side, opponent: Bot): GameModel => {
         $rollable: engine.$state.map(state => state.currentPlayerId === userId && state.roll === null),
         $skippable: combine(engine.$state, $cells).map(([state, cells]) => state.currentPlayerId === userId && cells.findIndex(cell => cell?.clickable) === -1),
         $outcome: engine.$state.map(state => !state.ended ? Outcome.UNKNOWN : (state.currentPlayerId === userId ? Outcome.WIN : Outcome.LOSS)),
-        roll: engine.roll,
+        rollDices: engine.rollDices.prepend(() => null),
         skipMove: engine.skipMove,
     };
 };

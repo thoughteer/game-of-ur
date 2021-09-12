@@ -38,7 +38,7 @@ export const Game: React.FC<GameModel> = (model) => {
       <div className={styles.filler}/>
       {
         rollable ? (
-          <div className={styles.actionButton} onClick={ () => model.roll() }><BiPaintRoll/></div>
+          <div className={styles.actionButton} onClick={ () => model.rollDices() }><BiPaintRoll/></div>
         ) : (
           skippable ? (
             <div className={styles.actionButton} onClick={ () => model.skipMove() }><BiSkipNext/></div>

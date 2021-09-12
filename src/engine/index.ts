@@ -5,7 +5,7 @@ import { Board, CellKind, Dice, Engine, Path, Piece, Roll, EngineState } from ".
 export * from "./types";
 
 // TODO: add more asserts!
-// TODO: introduce CellId's
+// TODO: introduce CellId and PlayerId
 // TODO: learn to write tests
 
 export const createEngine = (board: Board, dices: Dice[], pieceCount: number): Engine => {
@@ -22,19 +22,19 @@ export const createEngine = (board: Board, dices: Dice[], pieceCount: number): E
     });
 
     const started = createEvent<number>();
-    const rolled = createEvent();
+    const dicesRolled = createEvent<Roll | null>();
     const moveSkipped = createEvent();
     const pieceMoved = createEvent<number>();
 
     $state.on(started, (state, firstPlayerId) => start(state, firstPlayerId));
-    $state.on(rolled, state => roll(state, board, dices));
+    $state.on(dicesRolled, (state, roll) => rollDices(state, board, dices, roll));
     $state.on(moveSkipped, skipMove);
     $state.on(pieceMoved, (state, movedPieceId) => movePiece(state, movedPieceId, board));
 
     return {
         $state,
         start: started,
-        roll: rolled,
+        rollDices: dicesRolled,
         skipMove: moveSkipped,
         movePiece: pieceMoved,
     };
@@ -44,8 +44,8 @@ const start = (state: EngineState, firstPlayerId: number): EngineState => {
     return { ...state, currentPlayerId: firstPlayerId };
 };
 
-const roll = (state: EngineState, board: Board, dices: Dice[]): EngineState => {
-    const newRoll = generateRandomRoll(dices);
+const rollDices = (state: EngineState, board: Board, dices: Dice[], roll: Roll | null): EngineState => {
+    const newRoll = roll === null ? generateRandomRoll(dices) : roll;
     const newRollSum = computeRollSum(newRoll);
 
     const currentPlayerId = state.currentPlayerId;

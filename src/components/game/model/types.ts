@@ -1,4 +1,5 @@
 import { Event, Store } from "effector";
+import { Roll } from "../../../engine";
 import { BoardModel } from "../../board/model";
 import { CellModel } from "../../cell/model";
 import { RollModel } from "../../roll/model";
@@ -21,6 +22,6 @@ export type GameModel = {
     $rollable: Store<boolean>;
     $skippable: Store<boolean>;
     $outcome: Store<Outcome>;
-    roll: Event<void>;
+    rollDices: Event<void>;
     skipMove: Event<void>;
 };

@@ -15,7 +15,7 @@ export const createBot = (strategy: BotStrategy): Bot => {
             guard({
                 source: [$botsTurn, $rollable],
                 filter: ([botsTurn, rollable]) => botsTurn && rollable,
-                target: engine.roll,
+                target: engine.rollDices.prepend(() => null),
             });
 
             const triggered = guard({
