@@ -1,13 +1,12 @@
 import { createEffect, forward, guard, sample, split } from "effector";
 import { EngineState, Roll } from "../engine";
-import { createRandomBotStrategy } from "./strategies";
-import { Bot, BotError, BotKind, BotMove, BotStrategy, DiceRoller } from "./types";
+import { Bot, BotHand, BotMove, BotStrategy } from "./types";
 
 export * from "./types";
 
-export const createBot = (strategy: BotStrategy, diceRoller: DiceRoller = async () => null): Bot => {
-    const rollDicesFx = createEffect<void, Roll | null, BotError>(diceRoller);
-    const moveFx = createEffect<EngineState, BotMove, BotError>(strategy);
+export const createBot = (strategy: BotStrategy, hand: BotHand = async () => null): Bot => {
+    const rollDicesFx = createEffect<void, Roll | null, Error>(hand);
+    const moveFx = createEffect<EngineState, BotMove, Error>(strategy);
     return {
         attach: (engine, playerId) => {
             const $botsTurn = engine.$state.map(state => state.currentPlayerId === playerId);
@@ -48,19 +47,7 @@ export const createBot = (strategy: BotStrategy, diceRoller: DiceRoller = async 
                 },
             });
         },
+        detach: () => {},
         $thinking: moveFx.pending,
     };
-};
-
-export const botFactory = {
-    create: (kind: BotKind, settings: any) => {
-        if (kind === BotKind.RANDOM) {
-            return botFactory.createRandomBot();
-        }
-        throw {};
-        // TODO: throw
-    },
-    createRandomBot: (): Bot => {
-        return createBot(createRandomBotStrategy());
-    },
 };

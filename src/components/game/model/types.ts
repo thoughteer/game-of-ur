@@ -1,5 +1,4 @@
 import { Event, Store } from "effector";
-import { Roll } from "../../../engine";
 import { BoardModel } from "../../board/model";
 import { CellModel } from "../../cell/model";
 import { RollModel } from "../../roll/model";
@@ -16,9 +15,11 @@ export enum Outcome {
 };
 
 export type GameModel = {
+    destroy: () => void;
     rollModel: RollModel;
     boardModel: BoardModel;
     cellModels: CellModel[];
+    $broken: Store<boolean>;
     $rollable: Store<boolean>;
     $skippable: Store<boolean>;
     $outcome: Store<Outcome>;

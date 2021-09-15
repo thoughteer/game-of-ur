@@ -3,19 +3,33 @@ import { Board } from "../board";
 import { Cell } from "../cell";
 import { Roll } from "../roll";
 import { GameModel, Outcome } from "./model";
-import { BiHappyBeaming, BiPaintRoll, BiRefresh, BiSad, BiSkipNext } from "react-icons/bi";
+import { BiDice5, BiFastForward, BiHappyBeaming, BiRefresh, BiSad } from "react-icons/bi";
 import { Overlay } from "../overlay";
 import { useHistory } from "react-router";
+import { useEffect } from "react";
 import styles from "./index.module.css";
 
 export * as model from "./model";
 
 export const Game: React.FC<GameModel> = (model) => {
+  useEffect(() => (() => { model.destroy(); }), [model]);
   const history = useHistory();
+  const broken = useStore(model.$broken);
   const rollable = useStore(model.$rollable);
   const skippable = useStore(model.$skippable);
   const outcome = useStore(model.$outcome);
   return <div className={styles.game}>
+  {
+    broken ? (
+      <Overlay>
+        <div className={styles.notification}>Sorry, but you may have to restart the game...</div>
+        <div className={styles.retryButton} onClick={() => history.go(0)}>
+          <BiRefresh size="3em"/>
+          <div>RESTART</div>
+        </div>
+      </Overlay>
+    ) : null
+  }
   {
     outcome === Outcome.UNKNOWN ? null : (
       <Overlay>
@@ -38,10 +52,10 @@ export const Game: React.FC<GameModel> = (model) => {
       <div className={styles.filler}/>
       {
         rollable ? (
-          <div className={styles.actionButton} onClick={ () => model.rollDices() }><BiPaintRoll/></div>
+          <div className={styles.actionButton} onClick={ () => model.rollDices() }><BiDice5/></div>
         ) : (
           skippable ? (
-            <div className={styles.actionButton} onClick={ () => model.skipMove() }><BiSkipNext/></div>
+            <div className={styles.actionButton} onClick={ () => model.skipMove() }><BiFastForward/></div>
           ) : <div className={styles.actionButton}></div>
         )
       }

@@ -1,6 +1,6 @@
 import { combine, Store } from "effector";
 import { stringify } from "qs";
-import { BotKind } from "../../../bot";
+import { BotKind } from "../../../bots";
 import { Side } from "../../game/model";
 import { StarterModel } from "./types";
 

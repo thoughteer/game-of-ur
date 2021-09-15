@@ -37,6 +37,13 @@
   margin-bottom: 0.25em;
 }
 
+.notification {
+  display: inline-flex;
+  font-size: 0.2em;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
 .retryButton {
   align-items: center;
   background-color: #000a;

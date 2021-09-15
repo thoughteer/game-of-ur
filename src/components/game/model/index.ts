@@ -1,4 +1,4 @@
-import { combine, createEvent, sample } from "effector";
+import { combine, createEvent, createStore, sample } from "effector";
 import { Bot } from "../../../bot";
 import { Board, CellKind, createEngine } from "../../../engine";
 import { PieceColor } from "../../piece/model";
@@ -80,6 +80,7 @@ export const createGameModel = (userSide: Side, opponent: Bot): GameModel => {
         return result;
     });
     return {
+        destroy: opponent.detach,
         rollModel: {
             $state: engine.$state.map(state => state.roll),
         },
@@ -102,6 +103,7 @@ export const createGameModel = (userSide: Side, opponent: Bot): GameModel => {
                 clicked,
             };
         }),
+        $broken: opponent.$broken || createStore<boolean>(false),
         $rollable: engine.$state.map(state => state.currentPlayerId === userId && state.roll === null),
         $skippable: combine(engine.$state, $cells).map(([state, cells]) => state.currentPlayerId === userId && cells.findIndex(cell => cell?.clickable) === -1),
         $outcome: engine.$state.map(state => !state.ended ? Outcome.UNKNOWN : (state.currentPlayerId === userId ? Outcome.WIN : Outcome.LOSS)),
