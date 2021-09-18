@@ -3,7 +3,7 @@
   margin-top: 1em;
 }
 
-.starter {
+.starter, .disabledStarter {
   align-items: center;
   background: red;
   color: white;
@@ -12,4 +12,8 @@
   margin-left: -2em;
   padding: 0 2em 0 3.5em;
   text-decoration: none;
+}
+
+.disabledStarter {
+  background: #666;
 }

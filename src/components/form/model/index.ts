@@ -1,4 +1,4 @@
-import { combine } from "effector";
+import { combine, sample } from "effector";
 import { FieldModel } from "../field/model";
 import { FormModel } from "./types";
 
@@ -10,7 +10,11 @@ export const createFormModel = (fieldModels: FieldModel[]): FormModel => {
         fieldValueStoresByName[field.name] = field.$value;
     });
     const $valid = combine(fieldModels.map(fieldModel => fieldModel.$valid)).map(flags => flags.reduce((a, b) => a && b, true));
-    const $state = combine(fieldValueStoresByName);
+    const $unvalidatedState = combine(fieldValueStoresByName);
+    const $state = sample({
+        source: [$valid, $unvalidatedState],
+        fn: ([valid, state]) => valid ? state : null,
+    });
     return {
         fieldModels,
         $valid,

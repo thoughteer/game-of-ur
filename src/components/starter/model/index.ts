@@ -8,6 +8,7 @@ export * from "./types";
 
 export const createStarterModel = (
     className: string,
+    disabledClassName: string,
     $side: Store<Side>,
     $opponentKind: Store<BotKind>,
     $opponentSettings: Store<any>,
@@ -18,8 +19,11 @@ export const createStarterModel = (
             return `/play/${side}/vs/${opponentKind}?${stringify(opponentSettings)}`;
         },
     );
+    const $disabled = $opponentSettings.map(settings => settings === null);
     return {
         className,
+        disabledClassName,
         $path,
+        $disabled,
     };
 };

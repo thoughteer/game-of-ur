@@ -1,7 +1,7 @@
 import { useStore } from "effector-react";
 import { SelectorModel } from "./model";
-import styles from "./index.module.css";
 import { Form } from "../form";
+import styles from "./index.module.css";
 
 export const Selector: React.FC<SelectorModel> = (model) => {
     const id = useStore(model.$id);

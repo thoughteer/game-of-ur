@@ -19,7 +19,13 @@ const opponentKindSelectorModel = createSelectorModel([
 const $opponentKind = opponentKindSelectorModel.$id.map(id => id as BotKind);
 const $opponentSettings = opponentKindSelectorModel.$state;
 
-const starterModel = createStarterModel(styles.starter, badgeModel.$side, $opponentKind, $opponentSettings);
+const starterModel = createStarterModel(
+    styles.starter,
+    styles.disabledStarter,
+    badgeModel.$side,
+    $opponentKind,
+    $opponentSettings,
+);
 
 export const Select: React.FC<{}> = () => {
     return <>
