@@ -15,5 +15,5 @@ export type FieldModel = {
 
 export type TextFieldModel = FieldModel & {
     placeholder: string;
-    satellite?: ReactChild;
+    satellites: ReactChild[];
 };

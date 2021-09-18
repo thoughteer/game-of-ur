@@ -1,4 +1,4 @@
-import { BiFace } from "react-icons/bi";
+import { BiCopy, BiFace } from "react-icons/bi";
 import { validateRoomId } from "../../../bots/friend";
 import { Action } from "../../../components/form/action";
 import { createTextFieldModel } from "../../../components/form/field/model";
@@ -10,8 +10,11 @@ export const createFriendOption = (): Option => {
         "roomId",
         "Room #",
         validateRoomId,
-        // TODO: move to helpers
-        <Action title="Generate" act={() => roomIdModel.change(Math.random().toString().slice(2, 12))}/>,
+        [
+            <Action icon={<BiCopy/>} act={() => navigator.clipboard.writeText(roomIdModel.$value.getState())}/>,
+            // TODO: move to helpers
+            <Action title="Generate" act={() => roomIdModel.change(Math.random().toString().slice(2, 12))}/>,
+        ],
     );
     const fieldModels = [
         roomIdModel,

@@ -1,11 +1,17 @@
-.text {
+.textField {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0.5em;
+}
+
+.textBox {
   background-color: #000;
   border: 0.1em solid #444;
   color: white;
   font-family: inherit;
   font-size: inherit;
   margin: 0.5em;
-  padding: 0.5em;
+  padding: 0 1em;
 }
 
 .invalid {

@@ -8,7 +8,7 @@ export const createTextFieldModel = (
     name: string,
     placeholder: string,
     validator: (value: string) => boolean = () => true,
-    satellite?: ReactChild,
+    satellites: ReactChild[] = []
 ): TextFieldModel => {
     const changed = createEvent<string>();
     const $valid = restore(changed.map(validator), false);
@@ -17,7 +17,7 @@ export const createTextFieldModel = (
         kind: FieldKind.TEXT,
         name,
         placeholder,
-        satellite,
+        satellites,
         $valid,
         $value,
         change: changed,

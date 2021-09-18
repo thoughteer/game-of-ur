@@ -1,4 +1,7 @@
+import { ReactChild } from "react";
+
 export type ActionModel = {
-    title: string;
+    icon?: ReactChild;
+    title?: string;
     act: () => void;
 };
