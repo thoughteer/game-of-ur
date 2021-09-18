@@ -1,7 +1,6 @@
 .action {
-  background-color: #444;
-  border: 0.1em solid #222;
-  border-radius: 0.5em;
+  background-color: #222;
+  border: 0.1em solid #444;
   color: white;
   cursor: pointer;
   font-family: inherit;
@@ -11,6 +10,6 @@
 }
 
 .action:active {
-  background-color: #222;
-  border: 0.1em solid black;
+  background-color: #444;
+  border-color: #000;
 }
