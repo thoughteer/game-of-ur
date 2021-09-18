@@ -57,3 +57,7 @@ export const createFriendBotStrategy = (channel: Channel): BotStrategy => {
         return await channel.get();
     }
 };
+
+export const validateRoomId = (roomId: string): boolean => {
+    return roomId !== undefined && /^[0-9a-z-]{1,30}$/.test(roomId);
+};

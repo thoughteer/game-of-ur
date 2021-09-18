@@ -1,15 +1,17 @@
 import { Event, Store } from "effector";
 import { ReactChild } from "react";
+import { FormModel } from "../../form/model";
 
 export type Option = Readonly<{
     id: string;
     icon?: ReactChild;
     title: string;
-    content?: ReactChild;
+    formModel?: FormModel;
 }>;
 
 export type SelectorModel = {
     options: Option[];
-    $selectedOptionId: Store<string>;
+    $id: Store<string>;
+    $state: Store<any>;
     changed: Event<string>;
 };

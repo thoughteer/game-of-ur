@@ -1,4 +1,4 @@
-import { createFriendBot } from "./friend";
+import { createFriendBot, validateRoomId } from "./friend";
 import { createRandomBot } from "./random";
 import { BotKind, BotFactory } from "./types";
 
@@ -10,7 +10,10 @@ export const botFactory: BotFactory = {
             return createRandomBot();
         }
         if (kind === BotKind.FRIEND) {
-            // TODO: asset settings.roomId is not undefined
+            // TODO: handle properly
+            if (!validateRoomId(settings.roomId)) {
+                throw {};
+            }
             return createFriendBot(settings.roomId);
         }
         // TODO: report an error

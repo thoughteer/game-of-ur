@@ -32,16 +32,15 @@
   height: 0.5em;
   border-left: 1em solid transparent;
   border-right: 1em solid transparent;
-  border-bottom: 0.5em solid black;
+  border-bottom: 0.5em solid #222;
   margin-bottom: -0.5em;
 }
 
-.content {
-  background-color: black;
-  display: flex;
-  padding: 1em;
+.form {
+  background-color: #222;
+  padding: 0.5em;
 }
 
-.content:empty {
+.form:empty {
   display: none;
 }
