@@ -12,11 +12,10 @@ export const botFactory: BotFactory = {
         if (kind === BotKind.FRIEND) {
             // TODO: handle properly
             if (!validateRoomId(settings.roomId)) {
-                throw {};
+                throw new Error("invalid roomId");
             }
             return createFriendBot(settings.roomId);
         }
-        // TODO: report an error
-        throw {};
+        throw new Error("unknown bot kind");
     },
 };
